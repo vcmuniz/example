@@ -28,6 +28,14 @@ Se não precisar alterar as portas, também é possível executar diretamente:
 docker compose -f infra/docker-compose.yml up --build
 ```
 
+Para atualizar automaticamente `APP_VERSION` com o hash curto após cada commit, configure o hook uma vez:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+Depois, faça o build normalmente. A versão será exibida nos três frontends e também estará disponível em `GET /api/version`.
+
 URLs padrão:
 
 - API: http://localhost:3000

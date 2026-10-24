@@ -1,6 +1,7 @@
 import http from "node:http";
 
 const port = Number(process.env.PORT || 3000);
+const version = process.env.APP_VERSION || "dev";
 
 const routes = {
   "/api/hello": { app: "API", message: "Olá do backend!" },
@@ -11,7 +12,8 @@ const routes = {
       { id: 2, name: "Bruno" }
     ]
   },
-  "/api/status": { app: "API", status: "ok", timestamp: new Date().toISOString() }
+  "/api/status": { app: "API", status: "ok", timestamp: new Date().toISOString() },
+  "/api/version": { app: "API", version }
 };
 
 const server = http.createServer((request, response) => {

@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+
+root="$(git rev-parse --show-toplevel)"
+version="$(git rev-parse --short HEAD)"
+env_file="$root/.env"
+tmp_file="$root/.env.tmp.$$"
+
+if [ -f "$env_file" ]; then
+  awk -v version="$version" '
+    BEGIN { updated = 0 }
+    /^APP_VERSION=/ { print "APP_VERSION=" version; updated = 1; next }
+    { print }
+    END { if (!updated) print "APP_VERSION=" version }
+  ' "$env_file" > "$tmp_file"
+else
+  printf 'APP_VERSION=%s\n' "$version" > "$tmp_file"
+fi
+
+mv "$tmp_file" "$env_file"

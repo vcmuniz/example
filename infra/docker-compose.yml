@@ -2,8 +2,11 @@ services:
   api:
     build:
       context: ../apps/api
+      args:
+        APP_VERSION: ${APP_VERSION:-dev}
     environment:
       PORT: 3000
+      APP_VERSION: ${APP_VERSION:-dev}
     ports:
       - "${API_PORT:-3000}:3000"
 
@@ -12,6 +15,7 @@ services:
       context: ../apps/frontend-1
       args:
         API_URL: ${API_URL:-http://localhost:3000}
+        APP_VERSION: ${APP_VERSION:-dev}
     depends_on:
       - api
     ports:
@@ -22,6 +26,7 @@ services:
       context: ../apps/frontend-2
       args:
         API_URL: ${API_URL:-http://localhost:3000}
+        APP_VERSION: ${APP_VERSION:-dev}
     depends_on:
       - api
     ports:
@@ -32,6 +37,7 @@ services:
       context: ../apps/frontend-3
       args:
         API_URL: ${API_URL:-http://localhost:3000}
+        APP_VERSION: ${APP_VERSION:-dev}
     depends_on:
       - api
     ports:
