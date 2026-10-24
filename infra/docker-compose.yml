@@ -1,0 +1,38 @@
+services:
+  api:
+    build:
+      context: ../apps/api
+    environment:
+      PORT: 3000
+    ports:
+      - "${API_PORT:-3000}:3000"
+
+  frontend-1:
+    build:
+      context: ../apps/frontend-1
+      args:
+        API_URL: ${API_URL:-http://localhost:3000}
+    depends_on:
+      - api
+    ports:
+      - "${FRONTEND_1_PORT:-8081}:80"
+
+  frontend-2:
+    build:
+      context: ../apps/frontend-2
+      args:
+        API_URL: ${API_URL:-http://localhost:3000}
+    depends_on:
+      - api
+    ports:
+      - "${FRONTEND_2_PORT:-8082}:80"
+
+  frontend-3:
+    build:
+      context: ../apps/frontend-3
+      args:
+        API_URL: ${API_URL:-http://localhost:3000}
+    depends_on:
+      - api
+    ports:
+      - "${FRONTEND_3_PORT:-8083}:80"

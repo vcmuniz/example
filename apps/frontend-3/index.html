@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head><meta charset="UTF-8"><title>Frontend 3</title></head>
+  <body>
+    <h1>Frontend 3</h1>
+    <pre id="result">Carregando...</pre>
+    <script>
+      fetch("__API_URL__/api/status").then((response) => response.json()).then((data) => {
+        document.querySelector("#result").textContent = JSON.stringify(data, null, 2);
+      });
+    </script>
+  </body>
+</html>
